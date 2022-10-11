@@ -35,12 +35,14 @@ const AddProduct = () => {
 		formData.set('category', category)
 		formData.set('quantity', quantity)
 		formData.set('shipping', shipping)
-
 		await axios
 			.post(`/product/create/${auth.user._id}`, formData)
 			.then((response) => {
 				toast.success('Product created successfully')
-				setFormData('')
+				setTimeout(() => {
+					setFormData('')
+					window.location.reload(false)
+				}, 2500)
 			})
 			.catch((error) => console.log(error))
 	}
@@ -130,11 +132,11 @@ const AddProduct = () => {
 						<button className='mt-4 btn btn-primary'>Add Product</button>
 					</form>
 				</div>
-				<div className='col-6'>
+				{/* <div className='col-6'>
 					<h4 style={{ textAlign: 'center' }} className='text-muted'>
 						Products
 					</h4>
-				</div>
+				</div> */}
 			</div>
 		</div>
 	)
