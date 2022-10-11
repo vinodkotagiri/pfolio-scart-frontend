@@ -25,6 +25,11 @@ const Signup = () => {
 			})
 	}
 	useEffect(() => {
+		if (localStorage.getItem('auth')) {
+			navigate('/user/dashboard')
+		}
+	})
+	useEffect(() => {
 		//Check if all the fields are filled
 		if (
 			name &&
