@@ -3,6 +3,7 @@ import { Outlet, Link, useLocation, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import toast from 'react-hot-toast'
 const Navbar = () => {
+	const location = useLocation()
 	const isActive = (location, path) => {
 		if (location.pathname === path) {
 			return { backgroundColor: '#828282', color: '#e3be4d' }
@@ -16,7 +17,7 @@ const Navbar = () => {
 	useEffect(() => {
 		if (!localStorage.getItem('auth')) setLoggedIn(false)
 		else setLoggedIn(true)
-	})
+	}, [location.pathname])
 
 	const signout = async () => {
 		await axios
@@ -32,7 +33,6 @@ const Navbar = () => {
 		setLoggedIn(false)
 	}
 
-	const location = useLocation()
 	return (
 		<>
 			<ul className='nav nav-tabs bg-dark '>

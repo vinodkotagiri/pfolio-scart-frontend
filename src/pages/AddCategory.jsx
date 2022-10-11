@@ -7,6 +7,12 @@ const AddCategory = () => {
 	const [auth, setAuth] = useState({})
 	const [categories, setCategories] = useState([])
 
+	useEffect(() => {
+		setAuth(JSON.parse(localStorage.getItem('auth')))
+	}, [])
+	//Set auth token
+	axios.defaults.headers.common['Authorization'] = `Bearer ${auth.token}`
+
 	//Get categories
 	const getCategories = async () => {
 		await axios
@@ -19,14 +25,7 @@ const AddCategory = () => {
 
 	useEffect(() => {
 		getCategories()
-	}, [])
-
-	useEffect(() => {
-		setAuth(JSON.parse(localStorage.getItem('auth')))
-	}, [])
-	//Set auth token
-	axios.defaults.headers.common['Authorization'] = `Bearer ${auth.token}`
-
+	})
 	const handleAddCategory = async (e) => {
 		e.preventDefault()
 		if (!name) return toast.error('Please enter a name')
@@ -83,12 +82,11 @@ const AddCategory = () => {
 					</h4>
 					{categories.map((category, index) => (
 						<div
-							className='bg-info p-2 m-2'
+							className='bg-light p-2 m-2'
 							style={{
 								width: 'fit-content',
 								display: 'inline-block',
 								border: '1px solid #',
-								color: '#fff',
 								borderRadius: '1rem',
 							}}
 							key={index}>
@@ -96,7 +94,7 @@ const AddCategory = () => {
 								{category.name}
 							</span>
 							<span className='ms-2 me-2'>
-								<PencilSquare style={{ cursor: 'pointer', color: 'yellow' }} />
+								<PencilSquare style={{ cursor: 'pointer', color: '#828282' }} />
 							</span>
 							<span className='ms-2 me-2'>
 								<Trash3Fill
